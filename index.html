@@ -21,6 +21,7 @@
             <h2>Visitor Entry</h2>
             <div class="mb-3">
                 <input type="tel" id="phone" class="form-control" placeholder="Phone Number" required>
+                <small id="phoneStatus" class="text-muted"></small>
             </div>
             <div class="mb-3" id="otpSection" style="display: none;">
                 <input type="text" id="otp" class="form-control" placeholder="Enter OTP" required>
@@ -37,9 +38,11 @@
             const password = document.getElementById('password').value;
             if (password === 'admin') {
             document.getElementById('loginSection').style.display = 'none';
+            document.getElementById('additionalVisitors').style.display = 'none';
+            document.getElementById('categorySelection').style.display = 'none';
             document.getElementById('visitorFlow').style.display = 'block';
             document.getElementById('logoutBtn').style.display = 'block';
-            document.getElementById('password').value = '';
+            // document.getElementById('password').value = '';
             } else {
             alert('Incorrect password');
             document.getElementById('password').value = '';
@@ -100,12 +103,12 @@
             <button onclick="submitNewUser()" class="btn btn-primary">Submit</button>
         </div>
 
-        <!-- <div id="additionalVisitors" class="section" style="display: none;">
+        <div id="additionalVisitors" class="section" style="display: none;">
             <h2>Additional Visitors</h2>
             <p>Do you want to add more visitors?</p>
             <button onclick="addMoreVisitors()" class="btn btn-primary">Add More Visitors</button>
             <button onclick="completeVisit()" class="btn btn-success">Complete Visit</button>
-        </div> -->
+        </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
