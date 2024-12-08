@@ -12,12 +12,14 @@ async function request(url, options) {
     };
 }
 
+
 async function makeRequest(url, method, data, headers = {}) {
+    url = `${CONFIG.SCRIPT_URL}${url}`
     const options = {
+        redirect: 'follow',
         method: method,
         headers: headers,
-        body: JSON.stringify(data),
-        mode: "no-cors"  // TODO: Recheck this. To avoid cors error.
+        body: JSON.stringify(data)
     };
 
     const response = await fetch(url, options);
@@ -67,8 +69,10 @@ async function saveVisit(visitData) {
     return request(url, options);
 }
 
-async function submitNewUser(userData) {
+async function _submitNewUser(userData) {
     const url = `${CONFIG.SCRIPT_URL}/submitNewUser`;
+    const photoPreview = document.getElementById('photoPreview');
+    userData.image = photoPreview.src
     const options = {
         method: 'POST',
         headers: {
@@ -77,5 +81,6 @@ async function submitNewUser(userData) {
         },
         body: JSON.stringify(userData)
     };
+
     return request(url, options);
 }
