@@ -1,5 +1,5 @@
 const CONFIG = {
-    SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbw6MK1i-ZTrOmoROPG63-MIfMTkQgHw54QhcyN9PHHye0VNdjt-P17ktO2bahDJbkcSDQ/exec',
+    SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbx5S00BkOxmkxWIZIOTBNseWEyEtsO6W9J9gmtiVBTtQmS0mL7I-5AbMnPQKP5tD9Z5JQ/exec',
     AUTH_TOKEN: 'YOUR_AUTH_TOKEN',
     MOCK: {
         OTP: '1234',

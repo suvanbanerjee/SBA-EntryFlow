@@ -1,15 +1,18 @@
 let generatedOTP = null;
 // Generate a random 4-digit OTP
-generatedOTP = Math.floor(1000 + Math.random() * 9000).toString();
+// localStorage.setItem('currentVisit', false);
 
 async function sendOTP() {
     const phone = document.getElementById('phone').value;
+    generatedOTP = Math.floor(1000 + Math.random() * 9000).toString();
     if (!phone) {
         alert('Please enter a phone number');
         return;
     }
 
-    const resp = await makeRequest('', 'POST', {phone: phone, action: 'sendOtp'})
+    document.getElementById('loader').style.display = 'block';
+    const resp = await makeRequest('', 'POST', {phone: phone, action: 'sendOtp'});
+    document.getElementById('loader').style.display = 'none';
 
     try {
         let link=`whatsapp:///send?phone=91${phone}&text=${generatedOTP}`;
@@ -18,7 +21,14 @@ async function sendOTP() {
         document.getElementById('sendOtpBtn').disabled = true;
         document.getElementById('phoneStatus').innerHTML = resp.data.userExists? 'Visitor exists': 'Visitor does not exist'
         sessionStorage.setItem(phone, JSON.stringify({exists: resp.data.userExists}));
+        localStorage.setItem('visitID', resp.data.lastValue);
         alert(`OTP sent to your phone ${generatedOTP}. User exists? ${resp.data.userExists}`);
+        const isContinuedVisit = localStorage.getItem('currentVisit');
+        if (isContinuedVisit === "false" || isContinuedVisit === null) {
+            localStorage.setItem('visitID', "");
+            lastValue = resp.data.lastValue + 1;
+            localStorage.setItem('visitID', lastValue.toString());
+        }
     } catch (error) {
         console.log(error);
         alert('Error sending OTP');
@@ -95,15 +105,19 @@ async function saveCategory() {
         subcategory,
         phone: document.getElementById('phone').value,
         parent: document.getElementById('phone').value,
-        action: 'submitVisitor'
+        action: 'submitVisitor',
+        vid: localStorage.getItem('visitID')
     };
 
     try {
+        document.getElementById('loader').style.display = 'block';
         const response = await makeRequest('', "POST", visitorData);
+        document.getElementById('loader').style.display = 'none';
         // currentVisit.visitors.push(document.getElementById('phone').value);
         document.getElementById('additionalVisitors').style.display = 'block';
     } catch (error) {
         alert('Error saving category');
+        document.getElementById('loader').style.display = 'none';
     }
 }
 
@@ -119,7 +133,7 @@ async function addMoreVisitors() {
     document.getElementById('otpSection').style.display = 'none';
     document.getElementById('sendOtpBtn').disabled = false;
     document.getElementById('phoneStatus').innerHTML = ''
-
+    localStorage.setItem('currentVisit', true);
     login()
 }
 
@@ -135,7 +149,7 @@ async function completeVisit() {
     document.getElementById('otpSection').style.display = 'none';
     document.getElementById('sendOtpBtn').disabled = false;
     document.getElementById('phoneStatus').innerHTML = ''
-
+    localStorage.setItem('currentVisit', false);
     login()
 }
 
@@ -162,7 +176,7 @@ async function submitNewUser() {
         state,
         referrer,
         image: photoData,
-        vid: Math.floor(10000 + Math.random() * 90000),
+        vid: localStorage.getItem('visitID'),
         action: 'submitNewVisitor'
     };
 
@@ -170,15 +184,19 @@ async function submitNewUser() {
 
 
     try {
+        document.getElementById('loader').style.display = 'block';
         const response = await makeRequest('', 'POST', userData);
+        document.getElementById('loader').style.display = 'none';
         if (response.status === 'success') {
             alert('New user submitted successfully!');
         } else {
             console.log(response);
             alert('Error submitting new user');
         }
+        document.getElementById('loader').style.display = 'none';
     } catch (error) {
         alert('Error submitting new user');
+        document.getElementById('loader').style.display = 'none';
         console.error(error);
     }
     finally {

@@ -36,7 +36,8 @@ async function verifyPhone(phone) {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${CONFIG.AUTH_TOKEN}`
+            'Authorization': `Bearer ${CONFIG.AUTH_TOKEN}`,
+            'Access-Control-Allow-Origin': '*'
         },
         body: JSON.stringify({ phone })
     };
