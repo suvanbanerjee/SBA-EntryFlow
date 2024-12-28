@@ -71,8 +71,17 @@ async function saveVisit(visitData) {
 
 async function _submitNewUser(userData) {
     const url = `${CONFIG.SCRIPT_URL}/submitNewUser`;
-    const photoPreview = document.getElementById('photoPreview');
-    userData.image = photoPreview.src
+    
+    // Capture the photo (if not already done)
+    if (!photoData) {
+        alert('Please capture a photo first');
+        return;
+    }
+
+    userData.image = photoData; // Assign the Base64 image data
+    console.log(photoData);
+    userData.vid = Math.floor(10000 + Math.random() * 90000)
+    
     const options = {
         method: 'POST',
         headers: {

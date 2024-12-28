@@ -1,4 +1,5 @@
 let stream = null;
+let photoData = null; // Make sure this is defined in the correct scope
 
 async function capturePhoto() {
     const camera = document.getElementById('camera');
@@ -14,7 +15,7 @@ async function capturePhoto() {
         // Take photo after 3 seconds
         setTimeout(() => {
             photoCanvas.getContext('2d').drawImage(camera, 0, 0, photoCanvas.width, photoCanvas.height);
-            const photoData = photoCanvas.toDataURL('image/jpeg');
+            photoData = photoCanvas.toDataURL('image/jpeg'); // Use the global photoData variable
             photoPreview.src = photoData;
             photoPreview.style.display = 'block';
             

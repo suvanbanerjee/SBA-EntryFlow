@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <button onclick="logout()" id="logoutBtn" class="btn btn-danger" style="display: none; float: right;">Logout</button>
     <div class="container mt-5">
         <div id="loginSection" class="section">
             <h2>Login</h2>
@@ -29,8 +30,6 @@
             </div>
             <button onclick="sendOTP()" id="sendOtpBtn" class="btn btn-primary">Send OTP</button>
         </div>
-
-        <button onclick="logout()" id="logoutBtn" class="btn btn-danger" style="display: none;">Logout</button>
     </div>
 
     <script>

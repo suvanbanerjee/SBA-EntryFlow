@@ -1,4 +1,6 @@
 let generatedOTP = null;
+// Generate a random 4-digit OTP
+generatedOTP = Math.floor(1000 + Math.random() * 9000).toString();
 
 async function sendOTP() {
     const phone = document.getElementById('phone').value;
@@ -7,16 +9,16 @@ async function sendOTP() {
         return;
     }
 
-    // Generate a random 4-digit OTP
-    // generatedOTP = Math.floor(1000 + Math.random() * 9000).toString();
     const resp = await makeRequest('', 'POST', {phone: phone, action: 'sendOtp'})
 
     try {
+        let link=`whatsapp:///send?phone=91${phone}&text=${generatedOTP}`;
+        window.open(link, '_blank');
         document.getElementById('otpSection').style.display = 'block';
         document.getElementById('sendOtpBtn').disabled = true;
         document.getElementById('phoneStatus').innerHTML = resp.data.userExists? 'Visitor exists': 'Visitor does not exist'
         sessionStorage.setItem(phone, JSON.stringify({exists: resp.data.userExists}));
-        alert(`OTP sent to your phone 1111. User exists? ${resp.data.userExists}`);
+        alert(`OTP sent to your phone ${generatedOTP}. User exists? ${resp.data.userExists}`);
     } catch (error) {
         console.log(error);
         alert('Error sending OTP');
@@ -40,7 +42,7 @@ async function verifyOTP() {
     const phone = document.getElementById('phone').value;
     const otp = document.getElementById('otp').value;
 
-    if (otp !== '1111') {
+    if (otp !== generatedOTP) {
         alert('Invalid OTP entered');
         return;
     }
@@ -159,10 +161,12 @@ async function submitNewUser() {
         email,
         state,
         referrer,
+        image: photoData,
+        vid: Math.floor(10000 + Math.random() * 90000),
         action: 'submitNewVisitor'
     };
 
-    console.log(userData);
+    // console.log(userData);
 
 
     try {
