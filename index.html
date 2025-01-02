@@ -50,28 +50,31 @@
             <button onclick="saveCategory()" class="btn btn-primary">Continue</button>
         </div>
 
-        <div id="newUserForm" class="section" style="display: none;">
+        <div id="newUserForm" class="section" style="display: none; overflow-y: auto; max-height: 400px;">
             <h2>New User Registration</h2>
             <div class="mb-3">
-                <input type="tel" id="registeredPhone" class="form-control" readonly>
+            <input type="tel" id="registeredPhone" class="form-control" readonly>
             </div>
             <div class="mb-3">
-                <input type="text" id="fullName" class="form-control" placeholder="Full Name" required>
+            <input type="text" id="fullName" class="form-control" placeholder="Full Name" required>
             </div>
             <div class="mb-3">
-                <input type="email" id="email" class="form-control" placeholder="Email" required>
+            <input type="email" id="email" class="form-control" placeholder="Email" required>
             </div>
             <div class="mb-3">
-                <input type="text" id="state" class="form-control" placeholder="State (Bangalore Area)" required>
+            <input type="date" id="dob" class="form-control" placeholder="Date of Birth" required>
             </div>
             <div class="mb-3">
-                <input type="text" id="referrer" class="form-control" placeholder="Referrer" required>
+            <input type="text" id="state" class="form-control" placeholder="State (Bangalore Area)" required>
             </div>
             <div class="mb-3">
-                <button onclick="capturePhoto()" class="btn btn-secondary">Take Photo</button>
-                <video id="camera" style="display: none;"></video>
-                <canvas id="photoCanvas" style="display: none;"></canvas>
-                <img id="photoPreview" style="display: none; max-width: 300px;" alt="Photo preview">
+            <input type="text" id="referrer" class="form-control" placeholder="Referrer" required>
+            </div>
+            <div class="mb-3">
+            <button onclick="capturePhoto()" class="btn btn-secondary">Take Photo</button>
+            <video id="camera" style="display: none;"></video>
+            <canvas id="photoCanvas" style="display: none;"></canvas>
+            <img id="photoPreview" style="display: none; max-width: 300px;" alt="Photo preview">
             </div>
             <button onclick="submitNewUser()" class="btn btn-primary">Submit</button>
         </div>
@@ -125,6 +128,7 @@
             document.getElementById('categorySelection').style.display = 'none';
             document.getElementById('password').value = '';
             document.getElementById('phone').value = '';
+            document.getElementById('dob').value = '';
             document.getElementById('otp').value = '';
             document.getElementById('registeredPhone').value = '';
             document.getElementById('fullName').value = '';

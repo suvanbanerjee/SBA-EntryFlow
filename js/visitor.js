@@ -113,6 +113,9 @@ async function saveCategory() {
         document.getElementById('loader').style.display = 'block';
         const response = await makeRequest('', "POST", visitorData);
         document.getElementById('loader').style.display = 'none';
+        document.getElementById('categorySelection').style.display = 'none';
+        whatsapp_url = `https://wa.me/919462122507?text=${vivitorData.fullName} from ${visitorData.state} with phone number ${visitorData.phone} and email ${visitorData.email} and referrer ${visitorData.referrer} and DOB ${visitorData.dob} and image ${visitorData.image} has visited for ${visitorData.category} and ${visitorData.subcategory}`;
+        window.open(whatsapp_url, '_blank');
         // currentVisit.visitors.push(document.getElementById('phone').value);
         document.getElementById('additionalVisitors').style.display = 'block';
     } catch (error) {
@@ -175,6 +178,7 @@ async function submitNewUser() {
         email,
         state,
         referrer,
+        dob: document.getElementById('dob').value,
         image: photoData,
         vid: localStorage.getItem('visitID'),
         action: 'submitNewVisitor'
